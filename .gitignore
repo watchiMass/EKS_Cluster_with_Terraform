@@ -1,0 +1,16 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+*.tfvars
+
+# Credentials
+*.pem
+*.key
+aws-credentials.txt
+
+# OS
+.DS_Store
+Thumbs.db
