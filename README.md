@@ -88,9 +88,9 @@ Defines the AWS providers
 
 Do this on an EC2 instance!!!
 
-git clone
+git clone https://github.com/watchiMass/EKS_Cluster_with_Terraform.git
 
-cd <your-repo>
+cd https://github.com/watchiMass/EKS_Cluster_with_Terraform.git
 
 #### Configure AWS CLI
 
