@@ -1,17 +1,17 @@
 # EKS_Cluster_with_Terraform
 Infrastructure as Code (IaC) to deploy an Amazon EKS (Elastic Kubernetes Service) cluster on AWS with a modular architecture and secure remote state.
 
-## Ce projet déploie une infrastructure Kubernetes complète sur AWS incluant :
+## This project deploys a complete Kubernetes infrastructure on AWS, including:
 
-Cluster EKS managé avec haute disponibilité
+Managed EKS cluster with high availability
 
-VPC dédié avec subnets publics et privés multi-AZ
+Dedicated VPC with multi-AZ public and private subnets
 
-Node Groups configurables pour les workers Kubernetes
+Configurable Node Groups for Kubernetes workers
 
-Backend Terraform distant avec S3 + DynamoDB pour la gestion d'état sécurisée
+Remote Terraform backend with S3 + DynamoDB for secure state management
 
-Architecture modulaire pour une réutilisabilité maximale
+Modular architecture for maximum reusability
 
 
 
@@ -20,88 +20,83 @@ Architecture modulaire pour une réutilisabilité maximale
 
 
 
-## Composants Principaux
+## Main Components
 
-### 1. Backend Terraform
+### 1. Terraform Backend
 
-S3 Bucket : Stocke l'état Terraform de manière centralisée et sécurisée
+S3 Bucket: Stores Terraform state centrally and securely
 
-DynamoDB Table : Gère les verrous d'état pour éviter les modifications concurrentes
+DynamoDB Table: Manages state locks to prevent concurrent modifications
 
-C'est la fondation qui permet le travail en équipe et la sécurité de l'état
+This is the foundation that enables teamwork and state security
 
+### 2. VPC Module
 
-### 2. Module VPC
+Creates an isolated network on AWS with:
 
-Crée un réseau isolé sur AWS avec :
+Public subnets (for load balancers and NAT gateways)
 
-Subnets publics (pour les load balancers, NAT gateways)
+Private subnets (for Kubernetes workers)
 
-Subnets privés (pour les workers Kubernetes)
+Multi-AZ for high availability
 
-Multi-AZ pour la haute disponibilité
-
-Internet Gateway et NAT Gateway pour la connectivité
-
+Internet Gateway and NAT Gateway for connectivity
 
 
 
-### 3. Module EKS
 
+### 3. EKS Module
 
-Déploie un cluster Kubernetes managé par AWS
+Deploys an AWS-managed Kubernetes cluster
 
-Configure les node groups (groupes de workers)
+Configures node groups (worker groups)
 
-Gère les IAM roles et policies
+Manages IAM roles and policies
 
-Configure le control plane EKS
+Configures the EKS control plane
 
+### 4. Main Configuration (main.tf)
 
-### 4. Configuration Principale (main.tf)
-   
+Orchestras the VPC and EKS modules
 
-Orchestre les modules VPC et EKS
+Configures the remote S3 backend
 
-Configure le backend S3 distant
-
-Définit les providers AWS
+Defines the AWS providers
 
 ### Workflow
 
 #### 1. Backend Setup
 
-   └─> Crée S3 + DynamoDB
+└─> Creates S3 + DynamoDB
 
 #### 2. Terraform Init
 
-   └─> Se connecte au backend S3
+└─> Connects to the S3 backend
 
 #### 3. Terraform Plan/Apply
 
-   ├─> Module VPC crée le réseau
-   └─> Module EKS déploie Kubernetes
-   
+├─> VPC module creates the network
+└─> EKS module deploys Kubernetes
 
 #### 4. kubectl Configuration
 
-   └─> Se connecte au cluster EKS
+└─> Connects to the EKS cluster
 
 ## Installation
 
-#### Cloner le projet
+#### Clone the project
 
-Fais le sur une instance EC2 !!!
+Do this on an EC2 instance!!!
 
-git clone 
+git clone
 
-cd <votre-repo>
+cd <your-repo>
 
-#### Configurer AWS CLI
+#### Configure AWS CLI
 
 aws configure
 
-#### Créer le Backend S3 + DynamoDB
+#### Create the S3 + DynamoDB Backend
 
 cd backend
 
@@ -111,23 +106,23 @@ terraform plan
 
 terraform apply -auto-approve
 
-cd ..
+cd..
 
-#### Déploiement
+#### Deployment
 
 terraform init
 
-terraform plan 
+terraform plan
 
 terraform apply
 
-#### Configurer kubectl
+#### Configure kubectl 
 
- Récupérer la configuration kubeconfig
- 
+Retrieve kubeconfig configuration
+
 aws eks update-kubeconfig --region us-east-1 --name <cluster_name>
 
-Vérifier la connexion
+Check connection
 
 kubectl get nodes
 
@@ -137,7 +132,6 @@ kubectl get pods --all-namespaces
 I am open to any contributions
 
 give me a star if you like the project
-
 Add me on LinkedIn :  www.linkedin.com/in/théodore-jeriel-massima
 
 
