@@ -132,6 +132,7 @@ kubectl get pods --all-namespaces
 I am open to any contributions
 
 give me a star if you like the project
+
 Add me on LinkedIn :  www.linkedin.com/in/théodore-jeriel-massima
 
 
